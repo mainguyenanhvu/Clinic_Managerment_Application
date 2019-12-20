@@ -303,7 +303,9 @@ namespace QuanLyPhongKham
                 using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
                 {
                     Con.Open();
-                    string query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup)";
+                    string str_searchre = reformString(str_search);
+                    //string query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup)";
+                    string query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where p.name like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "p.address1 like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "p.phonenumber like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "e.profileCode like '%" + str_searchre + "%' collate Latin1_General_CI_AI";
                     SqlDataAdapter sqlDa = new SqlDataAdapter(query, Con);
                     if (sqlDa == null)
                     {
@@ -314,7 +316,7 @@ namespace QuanLyPhongKham
                     DataTable dttb = new DataTable();
                     sqlDa.Fill(dttb);
 
-                    dttb = searchInDataTable(str_search, dttb);
+                    //dttb = searchInDataTable(str_search, dttb);
                     data_view.DataSource = dttb;
                     data_view.Columns["ID"].Visible = false;
                     data_view.Columns["idm"].Visible = false;
