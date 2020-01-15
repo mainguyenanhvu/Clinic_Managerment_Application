@@ -69,7 +69,7 @@ namespace QuanLyPhongKham
             adjustDataView(dataView);
             if ((int)dataView.RowCount == 0)
             {
-               MessageBox.Show("Không có dữ liệu", "Thông báo");
+               MessageBox.Show("Không có dữ liệu!", "Thông báo");
                return;
             }
         }
@@ -195,84 +195,11 @@ namespace QuanLyPhongKham
         
         private void btn_search_Click(object sender, EventArgs e)
         {
-            string str_search = tb_search.Text;
-            if (str_search != "")
-            {
-                //Console.WriteLine(str_search);
-                using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
-                {
-                    Con.Open();
-                    string str_searchre = reformString(str_search);
-                    //string query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup)";
-                    string query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where p.name like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "p.address1 like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "p.phonenumber like '%" + str_searchre + "%' collate Latin1_General_CI_AI or " + "e.profileCode like '%" + str_searchre + "%' collate Latin1_General_CI_AI";
-                    SqlDataAdapter sqlDa = new SqlDataAdapter(query, Con);
-                    if (sqlDa == null)
-                    {
-                        //Khong co du lieu theo yeu cau tim kiem
-                        MessageBox.Show("Không có dữ liệu để tìm kiếm!", "Tìm kiếm");
-                        return;
-                    }
-                    DataTable dttb = new DataTable();
-                    sqlDa.Fill(dttb);
-
-                    //dttb = searchInDataTable(str_search, dttb);
-                    dataView.DataSource = dttb;
-                    dataView.Columns["ID"].Visible = false;
-                    dataView.Columns["idm"].Visible = false;
-                    dataView.Columns["ide"].Visible = false;
-                    Con.Close();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Bạn cần nhập từ khóa để thực hiện tìm kiếm!", "Tìm kiếm");
-            }
+            SearchManagement searchManagement = new SearchManagement();
+            showResult(dataView, searchManagement.find(new string[] { tb_search.Text }));
         }
+        
 
-        private DataTable searchInDataTable(string str_search, DataTable dttb)
-        {
-            string str_searchre = reformString(str_search);
-            foreach (DataRow datarow in dttb.Rows)
-            {
-                //string cellname = datarow["Họ và tên"].ToString();
-                string cellnamere = reformString(datarow["Họ và tên"].ToString());
-                //string cellphone = datarow["Số điện thoại"].ToString();
-                string cellphonere = reformString(datarow["Số điện thoại"].ToString());
-                string addressre = reformString(datarow["Địa chỉ"].ToString());
-                string idhsre = reformString(datarow["Mã hồ sơ"].ToString());
-                //Console.WriteLine("name: "+cellname);
-                //Console.WriteLine("phone: " + cellphone);
-                if (!searchString(str_searchre,cellnamere) && !searchString(str_searchre,cellphonere) && !searchString(str_searchre,addressre) && !searchString(str_searchre,idhsre))
-                {
-                    datarow.Delete();
-                }
-            }
-            dttb.AcceptChanges();
-            return dttb;
-        }
-
-        private string reformString(string str_search)
-        {
-            str_search = removeDiacritics(str_search); 
-            return str_search.ToLower();
-        }
-
-        private string removeDiacritics(string text)
-        {
-            var normalizedString = text.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
-
-            foreach (var c in normalizedString)
-            {
-                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
-                {
-                    stringBuilder.Append(c);
-                }
-            }
-
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        }
         bool searchString(string pat, string txt)
         {
             int M = pat.Length;
@@ -477,8 +404,6 @@ namespace QuanLyPhongKham
                 var relativeMousePosition = this.dataView.PointToClient(Cursor.Position);
                 this.menu_adjust_readd.Show(this.dataView, relativeMousePosition);
                 index = e.RowIndex;
-                
-
             }
             
         }
@@ -552,7 +477,6 @@ namespace QuanLyPhongKham
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             string[] date = getDateFromTextBox(this.tb_del_day, this.tb_del_month, this.tb_del_year);
             SearchManagement searchManagement = new SearchManagement();
             showResult(dataGridView_del, searchManagement.find(date));

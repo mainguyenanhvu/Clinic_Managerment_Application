@@ -80,6 +80,7 @@
       <DependentUpon>ReaddForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SearchManagement.cs" />
+    <Compile Include="StringSearch.cs" />
     <Compile Include="TimeCondition.cs" />
     <Compile Include="TimeManagementHelper.cs" />
     <Compile Include="Times.cs">

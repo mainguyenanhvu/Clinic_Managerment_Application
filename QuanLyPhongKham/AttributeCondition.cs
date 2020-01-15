@@ -7,7 +7,10 @@ namespace QuanLyPhongKham
     {
         override public DataTable search(string[] conditionstring)
         {
-            return null;
+            StringSearch stringSearch = new StringSearch(conditionstring[0]);
+            QueryHelper queryHelper = new QueryHelper();
+            string querySearch = queryHelper.create(new string[] { "select", "attribute" }, stringSearch);
+            return database.querySearch(querySearch);
         }
     }
 }
