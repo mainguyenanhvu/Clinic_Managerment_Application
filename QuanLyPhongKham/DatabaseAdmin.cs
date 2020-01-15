@@ -13,7 +13,7 @@ namespace QuanLyPhongKham
             connection.Open();
         }
 
-        internal int queryDelect(string queryString)
+        internal int queryDelete(string queryString)
         {
             SqlCommand cmdP = new SqlCommand(queryString, connection);
             var resP = cmdP.ExecuteNonQuery();

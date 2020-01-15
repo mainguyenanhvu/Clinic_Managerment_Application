@@ -25,7 +25,9 @@ namespace QuanLyPhongKham
         Dictionary<string, string> queryDelete = new Dictionary<string, string>()
         {
             {"one", "delete from MedicalExamination where ID = _IDM_; delete  from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where idPatient not in (select ID from PatientInformation) or (typeCheckup not in (select typeCheckup from MedicalExamination where idPatient = _ID_ and year(dateCheckup) = _YEAR_) and idPatient = _ID_ and yearCheckup = _YEAR_); delete  from MedicalExamination  where idPatient not in (select ID from PatientInformation);" },
-            {"all", "" }
+            {"Day", "delete from MedicalExamination where year(dateCheckup) = _YEAR_ and month(dateCheckup) = _MONTH_ and day(dateCheckup) = _DAY_; delete from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where yearCheckup = _YEAR_ or idPatient not in (select ID from PatientInformation);" },
+            {"Month", "delete from MedicalExamination where year(dateCheckup) = _YEAR_ and month(dateCheckup) = _MONTH_; delete from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where yearCheckup = _YEAR_ or idPatient not in (select ID from PatientInformation);" },
+            {"Year", "delete from MedicalExamination where year(dateCheckup) = _YEAR_; delete from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where yearCheckup = _YEAR_ or idPatient not in (select ID from PatientInformation);" }
         };
         public string create(string[] keywords, object Request)
         {
@@ -48,7 +50,7 @@ namespace QuanLyPhongKham
                 return createQueryDeleteOne((string[])Request);
             else
                     if (keywords[1].Equals("all"))
-                return creaQueryDeleteAll((string[])Request);
+                return creaQueryDeleteAll((TimeManagementHelper) Request);
             return ";";
         }
 
@@ -61,9 +63,19 @@ namespace QuanLyPhongKham
                 return createQueryAttributeCondition((StringSearch)Request);
             return defaultQueryTimeCondition;
         }
-        private string creaQueryDeleteAll(string[] request)
+        private string creaQueryDeleteAll(TimeManagementHelper request)
         {
-            return "";
+            switch (request.getStatus())
+            {
+                case "Day":
+                    return queryDelete[request.getStatus()].Replace("_DAY_", request.date["Day"]).Replace("_MONTH_", request.date["Month"]).Replace("_YEAR_", request.date["Year"]);
+                case "Month":
+                    return queryDelete[request.getStatus()].Replace("_MONTH_", request.date["Month"]).Replace("_YEAR_", request.date["Year"]);
+                case "Year":
+                    return queryDelete[request.getStatus()].Replace("_YEAR_", request.date["Year"]);
+                default:
+                    return ";";
+            }
         }
 
         private string createQueryDeleteOne(string[] request)

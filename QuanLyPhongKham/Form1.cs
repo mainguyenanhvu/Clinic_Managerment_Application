@@ -481,15 +481,18 @@ namespace QuanLyPhongKham
             DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn xóa dữ liệu này?", "Thông báo", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                foreach (DataGridViewRow newDataRow in dataGridView_del.Rows)
-                {
-                    string id = newDataRow.Cells[0].Value.ToString();
-                    string idm = newDataRow.Cells[10].Value.ToString();
-                    string year = tb_del_year.Text.ToString();
-                    DeleteManagement deleteManagement = new DeleteManagement();
-                    int rowEffect = deleteManagement.deleteOne(new string[] { idm, id, year });
-                }
+                //foreach (DataGridViewRow newDataRow in dataGridView_del.Rows)
+                //{
+                //    string id = newDataRow.Cells[0].Value.ToString();
+                //    string idm = newDataRow.Cells[10].Value.ToString();
+                //    string year = tb_del_year.Text.ToString();
+                //    DeleteManagement deleteManagement = new DeleteManagement();
+                //    int rowEffect = deleteManagement.deleteOne(new string[] { idm, id, year });
+                //}
+                DeleteManagement deleteManagement = new DeleteManagement();
+                int rowEffected = deleteManagement.deleteAll(new string[] { tb_del_day.Text, tb_del_month.Text, tb_del_year.Text });
                 dataGridView_del.DataSource = null;
+                MessageBox.Show("Đã xóa thành công " + rowEffected.ToString() + " dòng dữ liệu!", "Thông báo");
             }
             else if (dialogResult == DialogResult.No)
             {
