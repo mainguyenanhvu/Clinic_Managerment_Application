@@ -372,23 +372,16 @@ namespace QuanLyPhongKham
                 ch[2] = newDataRow.Cells[8].Value.ToString()[8];
                 ch[3] = newDataRow.Cells[8].Value.ToString()[9];
                 string year = new string(ch);
-                using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
-                {
-                    Con.Open();
-                    string query = "delete from MedicalExamination where ID = " + idm + "; delete  from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where idPatient not in (select ID from PatientInformation) or (typeCheckup not in (select typeCheckup from MedicalExamination where idPatient = " + id + " and year(dateCheckup) = " + year + ") and idPatient = " + id + " and yearCheckup = " + year + "); delete  from MedicalExamination  where idPatient not in (select ID from PatientInformation);";
-                    Console.WriteLine(query);
-                    SqlCommand cmdP = new SqlCommand(query, Con);
-                    var resP = cmdP.ExecuteNonQuery();
-                    if (resP != null & (int)resP >= 1)
-                    {
+                DeleteManagement deleteManagement = new DeleteManagement();
+                int rowEffect = deleteManagement.delete(new string[] { "delete","one" }, new string[] { idm, id, year });
+                if (rowEffect != 0)
+                   {
                         MessageBox.Show("Đã xóa thành công!", "Thông báo");
                         dataView.Rows.RemoveAt(index);
                         index = -1;
-                    }
+                   }
                     else
                         MessageBox.Show("Yêu cầu xóa thất bại!", "Thông báo");
-                    Con.Close();
-                }
             }
             else if (dialogResult == DialogResult.No)
             {

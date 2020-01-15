@@ -58,6 +58,7 @@
     <Compile Include="AttributeCondition.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="DatabaseAdmin.cs" />
+    <Compile Include="DeleteManagement.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

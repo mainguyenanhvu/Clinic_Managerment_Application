@@ -21,22 +21,54 @@ namespace QuanLyPhongKham
             {"phonenumber",  "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where p.phonenumber like '%_PHONENUMBER_%' collate Latin1_General_CI_AI ;"},
             {"profilecode",  "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where e.profileCode like '%_PROFILECODE_%' collate Latin1_General_CI_AI ;"},
         };
+
+        Dictionary<string, string> queryDelete = new Dictionary<string, string>()
+        {
+            {"one", "delete from MedicalExamination where ID = _IDM_; delete  from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where idPatient not in (select ID from PatientInformation) or (typeCheckup not in (select typeCheckup from MedicalExamination where idPatient = _ID_ and year(dateCheckup) = _YEAR_) and idPatient = _ID_ and yearCheckup = _YEAR_); delete  from MedicalExamination  where idPatient not in (select ID from PatientInformation);" },
+            {"all", "" }
+        };
         public string create(string[] keywords, object Request)
         {
             if (keywords[0].Equals("select"))
             {
-                if (keywords[1].Equals("time"))
-                    return createQueryTimeCondition((TimeManagementHelper)Request);
-                else
-                    if (keywords[1].Equals("attribute"))
-                    return createQueryAttributeCondition((StringSearch) Request);
+                return createSelectQuery(keywords, Request);
             }
-            else 
+            else
                 if (keywords[0].Equals("delete"))
             {
-                return defaultQueryTimeCondition;
+                return createDeleteQuery(keywords, Request);
+
             }
+            return ";" ;
+        }
+
+        private string createDeleteQuery(string[] keywords, object Request)
+        {
+            if (keywords[1].Equals("one"))
+                return createQueryDeleteOne((string[])Request);
+            else
+                    if (keywords[1].Equals("all"))
+                return creaQueryDeleteAll((string[])Request);
+            return ";";
+        }
+
+        private string createSelectQuery(string[] keywords, object Request)
+        {
+            if (keywords[1].Equals("time"))
+                return createQueryTimeCondition((TimeManagementHelper)Request);
+            else
+               if (keywords[1].Equals("attribute"))
+                return createQueryAttributeCondition((StringSearch)Request);
             return defaultQueryTimeCondition;
+        }
+        private string creaQueryDeleteAll(string[] request)
+        {
+            return "";
+        }
+
+        private string createQueryDeleteOne(string[] request)
+        {
+            return queryDelete["one"].Replace("_IDM_", request[0]).Replace("_ID_",request[1]).Replace("_YEAR_",request[2]);
         }
 
         private string createQueryAttributeCondition(StringSearch request)
@@ -44,7 +76,7 @@ namespace QuanLyPhongKham
             switch (request.getKeywords()[0])
             {
                 case "name":
-                    return queryAttributeCondition[request.getKeywords()[0]].Replace("_NAME_",request.getSearchString());
+                    return queryAttributeCondition[request.getKeywords()[0]].Replace("_NAME_", request.getSearchString());
                 case "address":
                     return queryAttributeCondition[request.getKeywords()[0]].Replace("_ADDRESS_", request.getSearchString());
                 case "phonenumber":

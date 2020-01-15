@@ -12,6 +12,15 @@ namespace QuanLyPhongKham
         {
             connection.Open();
         }
+
+        internal int queryDelect(string queryString)
+        {
+            SqlCommand cmdP = new SqlCommand(queryString, connection);
+            var resP = cmdP.ExecuteNonQuery();
+            if (resP == null) return 0;
+            return (int)resP;
+        }
+
         public DataTable querySearch(string queryString)
         {
             SqlDataAdapter sqlDa = new SqlDataAdapter(queryString, connection);
@@ -19,6 +28,8 @@ namespace QuanLyPhongKham
             sqlDa.Fill(dttb);
             return dttb;
         }
+
+    
 
         ~DatabaseAdmin()
         {
