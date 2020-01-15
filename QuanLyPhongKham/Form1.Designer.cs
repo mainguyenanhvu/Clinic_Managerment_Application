@@ -36,7 +36,7 @@
             this.tb_month = new System.Windows.Forms.TextBox();
             this.tb_day = new System.Windows.Forms.TextBox();
             this.btn_load = new System.Windows.Forms.Button();
-            this.data_view = new System.Windows.Forms.DataGridView();
+            this.dataView = new System.Windows.Forms.DataGridView();
             this.lb_year = new System.Windows.Forms.Label();
             this.lb_month = new System.Windows.Forms.Label();
             this.lb_day = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.AdjustToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tab_manage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_view)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.tab.SuspendLayout();
             this.tab_del_all.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_del)).BeginInit();
@@ -76,7 +76,7 @@
             this.tab_manage.Controls.Add(this.tb_month);
             this.tab_manage.Controls.Add(this.tb_day);
             this.tab_manage.Controls.Add(this.btn_load);
-            this.tab_manage.Controls.Add(this.data_view);
+            this.tab_manage.Controls.Add(this.dataView);
             this.tab_manage.Controls.Add(this.lb_year);
             this.tab_manage.Controls.Add(this.lb_month);
             this.tab_manage.Controls.Add(this.lb_day);
@@ -145,18 +145,18 @@
             // 
             // data_view
             // 
-            this.data_view.AllowUserToAddRows = false;
-            this.data_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataView.AllowUserToAddRows = false;
+            this.dataView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.data_view.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data_view.Location = new System.Drawing.Point(0, 118);
-            this.data_view.Name = "data_view";
-            this.data_view.ReadOnly = true;
-            this.data_view.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.data_view.Size = new System.Drawing.Size(861, 357);
-            this.data_view.TabIndex = 29;
-            this.data_view.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.data_view_CellMouseClick);
+            this.dataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataView.Location = new System.Drawing.Point(0, 118);
+            this.dataView.Name = "data_view";
+            this.dataView.ReadOnly = true;
+            this.dataView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataView.Size = new System.Drawing.Size(861, 357);
+            this.dataView.TabIndex = 29;
+            this.dataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.data_view_CellMouseClick);
             // 
             // lb_year
             // 
@@ -428,7 +428,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tab_manage.ResumeLayout(false);
             this.tab_manage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_view)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataView)).EndInit();
             this.tab.ResumeLayout(false);
             this.tab_del_all.ResumeLayout(false);
             this.tab_del_all.PerformLayout();
@@ -458,7 +458,7 @@
         private System.Windows.Forms.ContextMenuStrip menu_adjust_readd;
         private System.Windows.Forms.ToolStripMenuItem AdjustToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readdToolStripMenuItem;
-        private System.Windows.Forms.DataGridView data_view;
+        private System.Windows.Forms.DataGridView dataView;
         private System.Windows.Forms.TabPage tab_del_all;
         private System.Windows.Forms.Button btn_del_all;
         private System.Windows.Forms.DataGridView dataGridView_del;
