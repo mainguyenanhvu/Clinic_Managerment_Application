@@ -23,33 +23,10 @@ namespace QuanLyPhongKham
         private void Form1_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            createUI();
             setCurrentDate();
             
         }
-
-        private void createUI()
-        {
-            //this.data_view.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
-
-        private void setColumnWidth()
-        {
-            this.dataView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            
-            this.dataView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            //this.data_view.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataView.Columns[4].Width = 50;
-            //this.data_view.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataView.Columns[5].Width = 50;
-            //this.data_view.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.dataView.Columns[6].Width = 300;
-            this.dataView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataView.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            
-        }
+        
 
         private void setCurrentDate()
         {
@@ -81,68 +58,6 @@ namespace QuanLyPhongKham
 
         private void btn_load_Click_1(object sender, EventArgs e)
         {
-            //string query = "";
-            //int day = getIntDay(this.tb_day.Text);
-            //int month = getIntMonth(this.tb_month.Text);
-            //int year = getIntYear(this.tb_year.Text);
-
-            //bool checkDay = day != -1;
-            //bool checkMon = month != -1;
-            //bool checkYear = year != -1;
-
-
-            //if (checkYear)
-            //{
-            //    if (checkMon)
-            //    {
-            //        if (checkDay)
-            //        {
-            //            query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString() + " and day(m.dateCheckup) = " + day.ToString();
-            //        }
-            //        else
-            //        {
-            //            //Show data follow Year, Month
-            //            query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString();
-
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Cần nhập giá trị số ngày tháng năm để hiển thị!", "Lỗi");
-            //    return;
-            //}
-
-            //using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
-            //{
-            //    Con.Open();
-            //    //string query = "select p.ID as 'ID', p.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', m.typeCheckup as 'Loại khám' from PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)";
-            //    SqlDataAdapter sqlDa = new SqlDataAdapter(query, Con);
-            //    if (sqlDa == null)
-            //    {
-            //        //Khong co du lieu theo yeu cau tim kiem
-            //        MessageBox.Show("Không có dữ liệu để xem!", "Xem");
-            //        return;
-            //    }
-            //    DataTable dttb = new DataTable();
-            //    sqlDa.Fill(dttb);
-
-            //    data_view.DataSource = dttb;
-            //    data_view.Columns["ID"].Visible = false;
-            //    data_view.Columns["idm"].Visible = false;
-            //    data_view.Columns["ide"].Visible = false;
-            //    setColumnWidth();
-            //    if ((int)data_view.RowCount == 0)
-            //    {
-            //        MessageBox.Show("Không có dữ liệu", "Thông báo");
-            //        return;
-            //    }
-            //    Con.Close();
-            //}
             string[] date = getDateFromTextBox(this.tb_day, this.tb_month, this.tb_year);
             SearchManagement searchManagement = new SearchManagement();
             showResult(dataView, searchManagement.find(date));
@@ -194,72 +109,7 @@ namespace QuanLyPhongKham
             };
         }
 
-        private void loadDatabase()
-        {
-            string query = "";
-            int day = getIntDay(this.tb_day.Text);
-            int month = getIntMonth(this.tb_month.Text);
-            int year = getIntYear(this.tb_year.Text);
-
-            bool checkDay = day != -1;
-            bool checkMon = month != -1;
-            bool checkYear = year != -1;
-
-
-            if (checkYear)
-            {
-                if (checkMon)
-                {
-                    if (checkDay)
-                    {
-                        query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString() + " and day(m.dateCheckup) = " + day.ToString();
-                    }
-                    else
-                    {
-                        //Show data follow Year, Month
-                        query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString();
-                    }
-                }
-                else
-                {
-                    query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString();
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Cần nhập giá trị số ngày tháng năm để hiển thị!", "Lỗi");
-                return;
-            }
-
-            using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
-            {
-                Con.Open();
-                //string query = "select p.ID as 'ID', p.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', m.typeCheckup as 'Loại khám' from PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)";
-                SqlDataAdapter sqlDa = new SqlDataAdapter(query, Con);
-                if (sqlDa == null)
-                {
-                    //Khong co du lieu theo yeu cau tim kiem
-                    MessageBox.Show("Không có dữ liệu để xem!", "Xem");
-                    return;
-                }
-                DataTable dttb = new DataTable();
-                sqlDa.Fill(dttb);
-
-                dataView.DataSource = dttb;
-                dataView.Columns["ID"].Visible = false;
-                dataView.Columns["idm"].Visible = false;
-                dataView.Columns["ide"].Visible = false;
-                setColumnWidth();
-                if ((int)dataView.RowCount == 0)
-                {
-                    MessageBox.Show("Không có dữ liệu", "Thông báo");
-                    return;
-                }
-                Con.Close();
-            }
-        }
-
+        
         private int getIntDay(string strday)
         {
             bool day_check = checkNumber(strday);
@@ -702,70 +552,7 @@ namespace QuanLyPhongKham
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string query = "";
-            //int day = getIntDay(this.tb_del_day.Text);
-            //int month = getIntMonth(this.tb_del_month.Text);
-            //int year = getIntYear(this.tb_del_year.Text);
 
-            //bool checkDay = day != -1;
-            //bool checkMon = month != -1;
-            //bool checkYear = year != -1;
-
-            //Console.WriteLine(checkYear);
-
-            //if (checkYear)
-            //{
-            //    if (checkMon)
-            //    {
-            //        if (checkDay)
-            //        {
-            //            query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString() + " and day(m.dateCheckup) = " + day.ToString();
-            //        }
-            //        else
-            //        {
-            //            //Show data follow Year, Month
-            //            query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString() + " and month(m.dateCheckup) = " + month.ToString();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        query = "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from (PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)) left join CodeExamination as e on (p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where year(m.dateCheckup) = " + year.ToString();
-
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Cần nhập giá trị số ngày tháng năm để hiển thị!", "Lỗi");
-            //    return;
-            //}
-
-            //using (SqlConnection Con = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["QLPKConnectionString"].ToString()))
-            //{
-            //    Con.Open();
-            //    //string query = "select p.ID as 'ID', p.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar,m.dateCheckup,103) as 'Ngày khám', m.typeCheckup as 'Loại khám' from PatientInformation as p join MedicalExamination as m on (p.ID = m.idPatient)";
-            //    SqlDataAdapter sqlDa = new SqlDataAdapter(query, Con);
-            //    if (sqlDa == null)
-            //    {
-            //        //Khong co du lieu theo yeu cau tim kiem
-            //        MessageBox.Show("Không có dữ liệu để xem!", "Xem");
-            //        return;
-            //    }
-            //    DataTable dttb = new DataTable();
-            //    sqlDa.Fill(dttb);
-
-            //    dataGridView_del.DataSource = dttb;
-            //    dataGridView_del.Columns["ID"].Visible = false;
-            //    dataGridView_del.Columns["idm"].Visible = false;
-            //    dataGridView_del.Columns["ide"].Visible = false;
-            //    setColumnWidth_del();
-            //    //Console.WriteLine(dataGridView_del.Columns.Count);
-            //    if ((int)dataGridView_del.RowCount == 0)
-            //    {
-            //        MessageBox.Show("Không có dữ liệu", "Thông báo");
-            //        return;
-            //    }
-            //    Con.Close();
-            //}
             string[] date = getDateFromTextBox(this.tb_del_day, this.tb_del_month, this.tb_del_year);
             SearchManagement searchManagement = new SearchManagement();
             showResult(dataGridView_del, searchManagement.find(date));
