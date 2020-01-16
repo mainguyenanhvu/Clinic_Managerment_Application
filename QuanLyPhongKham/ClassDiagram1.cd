@@ -1,2 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QuanLyPhongKham.AttributeCondition" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>AttributeCondition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.DatabaseAdmin" Collapsed="true">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>DatabaseAdmin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.DeleteManagement" Collapsed="true">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAAAACA=</HashCode>
+      <FileName>DeleteManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.Condition" Collapsed="true">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Condition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.MedicalCondition" Collapsed="true">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>MedicalCondition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.QueryHelper" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAEgCABABAQAAAAAAAACAAAAAAAgLQACAAAAA=</HashCode>
+      <FileName>QueryHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.SearchManagement" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>SearchManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.StringSearch" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAQEAAAAAAAAAAAACAAgAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>StringSearch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.TimeCondition" Collapsed="true">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>TimeCondition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuanLyPhongKham.TimeManagementHelper" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAACAAAAAAgRQAAQAQAARAAAAA=</HashCode>
+      <FileName>TimeManagementHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
