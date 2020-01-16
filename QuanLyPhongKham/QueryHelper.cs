@@ -20,6 +20,7 @@ namespace QuanLyPhongKham
             {"address",  "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where p.address1 like '%_ADDRESS_%' collate Latin1_General_CI_AI ;"},
             {"phonenumber",  "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where p.phonenumber like '%_PHONENUMBER_%' collate Latin1_General_CI_AI ;"},
             {"profilecode",  "select p.ID as 'ID', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ', p.name as 'Họ và tên', p.birthyear as 'Năm sinh', p.gender as 'Giới tính', p.address1 as 'Địa chỉ', p.phonenumber as 'Số điện thoại', convert(varchar, m.dateCheckup, 103) as 'Ngày khám',  p.note as 'Ghi chú', m.ID as 'idm', e.ID as 'ide' from(PatientInformation as p join MedicalExamination as m on(p.ID = m.idPatient)) left join CodeExamination as e on(p.ID = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where e.profileCode like '%_PROFILECODE_%' collate Latin1_General_CI_AI ;"},
+            {"medical", "select convert(varchar,m.dateCheckup,103) as 'Ngày khám', m.typeCheckup as 'Chuyên khoa', e.profileCode as 'Mã hồ sơ' from MedicalExamination as m left join CodeExamination as e on (m.idPatient = e.idPatient and m.typeCheckup = e.typeCheckup and year(m.dateCheckup) = e.yearCheckup) where m.idPatient = _IDM_;" }
         };
 
         Dictionary<string, string> queryDelete = new Dictionary<string, string>()
@@ -29,6 +30,8 @@ namespace QuanLyPhongKham
             {"Month", "delete from MedicalExamination where year(dateCheckup) = _YEAR_ and month(dateCheckup) = _MONTH_; delete from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where yearCheckup = _YEAR_ or idPatient not in (select ID from PatientInformation);" },
             {"Year", "delete from MedicalExamination where year(dateCheckup) = _YEAR_; delete from PatientInformation  where ID not in (select idPatient from MedicalExamination); delete from CodeExamination where yearCheckup = _YEAR_ or idPatient not in (select ID from PatientInformation);" }
         };
+
+
         public string create(string[] keywords, object Request)
         {
             if (keywords[0].Equals("select"))
@@ -61,8 +64,16 @@ namespace QuanLyPhongKham
             else
                if (keywords[1].Equals("attribute"))
                 return createQueryAttributeCondition((StringSearch)Request);
+            if (keywords[1].Equals("medical"))
+                return createQueryMedicalCondition((string[])Request);
             return createdefaultQuery("time");
         }
+
+        private string createQueryMedicalCondition(string[] request)
+        {
+            return queryAttributeCondition["medical"].Replace("_IDM_",request[0]);
+        }
+
         private string creaQueryDeleteAll(TimeManagementHelper request)
         {
             switch (request.getStatus())
