@@ -41,7 +41,7 @@ namespace QuanLyPhongKham
                 return createDeleteQuery(keywords, Request);
 
             }
-            return ";" ;
+            return createdefaultQuery("create") ;
         }
 
         private string createDeleteQuery(string[] keywords, object Request)
@@ -51,7 +51,7 @@ namespace QuanLyPhongKham
             else
                     if (keywords[1].Equals("all"))
                 return creaQueryDeleteAll((TimeManagementHelper) Request);
-            return ";";
+            return createdefaultQuery("delete");
         }
 
         private string createSelectQuery(string[] keywords, object Request)
@@ -61,7 +61,7 @@ namespace QuanLyPhongKham
             else
                if (keywords[1].Equals("attribute"))
                 return createQueryAttributeCondition((StringSearch)Request);
-            return defaultQueryTimeCondition;
+            return createdefaultQuery("time");
         }
         private string creaQueryDeleteAll(TimeManagementHelper request)
         {
@@ -74,7 +74,7 @@ namespace QuanLyPhongKham
                 case "Year":
                     return queryDelete[request.getStatus()].Replace("_YEAR_", request.date["Year"]);
                 default:
-                    return ";";
+                    return createdefaultQuery("delete");
             }
         }
 
@@ -96,7 +96,7 @@ namespace QuanLyPhongKham
                 case "profilecode":
                     return queryAttributeCondition[request.getKeywords()[0]].Replace("_PROFILECODE_", request.getSearchString());
                 default:
-                    return defaultQueryAttributeCondition;
+                    return createdefaultQuery("attribute");
             }
         }
 
@@ -113,7 +113,25 @@ namespace QuanLyPhongKham
                 case "Year":
                     return queryTimeCondition[request.getStatus()].Replace("_YEAR_", request.date["Year"]);
                 default:
+                    //return defaultQueryTimeCondition;
+                    return createdefaultQuery("time");
+            }
+        }
+
+        private string createdefaultQuery(string type)
+        {
+            switch (type)
+            {
+                case "time":
                     return defaultQueryTimeCondition;
+                case "attribute":
+                    return defaultQueryAttributeCondition;
+                case "delete":
+                    return ";";
+                case "create":
+                    return ";";
+                default:
+                    return ";";
             }
         }
     }

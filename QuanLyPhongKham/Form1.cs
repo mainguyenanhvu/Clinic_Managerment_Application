@@ -60,7 +60,8 @@ namespace QuanLyPhongKham
         {
             string[] date = getDateFromTextBox(this.tb_day, this.tb_month, this.tb_year);
             SearchManagement searchManagement = new SearchManagement();
-            showResult(dataView, searchManagement.find(date));
+            Dictionary<string, string[]> condition = new Dictionary<string, string[]>() { { "time", date } };
+            showResult(dataView, searchManagement.find(condition));
         }
 
         private void showResult(DataGridView dataView, DataTable dttb)
@@ -196,7 +197,8 @@ namespace QuanLyPhongKham
         private void btn_search_Click(object sender, EventArgs e)
         {
             SearchManagement searchManagement = new SearchManagement();
-            showResult(dataView, searchManagement.find(new string[] { tb_search.Text }));
+            Dictionary<string, string[]> condition = new Dictionary<string, string[]>() { { "attribute", new string[] { tb_search.Text } } };
+            showResult(dataView, searchManagement.find(condition));
         }
         
 
@@ -472,7 +474,8 @@ namespace QuanLyPhongKham
         {
             string[] date = getDateFromTextBox(this.tb_del_day, this.tb_del_month, this.tb_del_year);
             SearchManagement searchManagement = new SearchManagement();
-            showResult(dataGridView_del, searchManagement.find(date));
+            Dictionary<string, string[]> condition = new Dictionary<string, string[]>() { { "time", date } };
+            showResult(dataView, searchManagement.find(condition));
         }
 
 

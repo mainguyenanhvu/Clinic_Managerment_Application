@@ -14,17 +14,14 @@ namespace QuanLyPhongKham
             { 0,new TimeCondition()},
             {1, new AttributeCondition() }
         };
-        public DataTable find(string[] conditionstring)
+        public DataTable find(Dictionary<string,string[]> condition)
         {
-            switch (conditionstring.Length)
-            {
-                case 1:
-                    return conditions[1].search(conditionstring);
-                case 3:
-                    return conditions[0].search(conditionstring);
-                default:
-                    return null;
-            }
+            if (condition.ContainsKey("time"))
+                return conditions[0].search(condition["time"]);
+            else 
+                if (condition.ContainsKey("attribute"))
+                return conditions[1].search(condition["attribute"]);
+            return null;
         }
     }
 }
